@@ -164,3 +164,32 @@ shapes = Rectangle(2 ,3)
 print(shapes.area())
 print(shapes.lenght)
 print(shapes.width)
+
+
+# Encapsulation
+
+# Q1
+# Create a class Employee with private attributes __name and __salary. Add methods set_details(name, salary) and get_details() to update and return the values.
+
+
+class Employee:
+    def __init__(self , name , salary):
+        self.__name = name
+        self.__salary = salary
+
+    def get_details(self):
+        return f"name : {self.__name} , salary : {self.__salary}"
+    
+    def set_details(self , __name , __salary):
+         self.__name = __name
+         self.__salary = __salary
+
+
+New_Employee = Employee("hassan" , 15000)
+# print(New_Employee.__name)
+# print(New_Employee.__salary)
+print(New_Employee.get_details())
+print(New_Employee.set_details("usman", 20000))
+print(New_Employee.get_details())
+
+
