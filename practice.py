@@ -193,3 +193,24 @@ print(New_Employee.set_details("usman", 20000))
 print(New_Employee.get_details())
 
 
+# Q2
+# Create a class Laptop with a private attribute __price. Use getter and setter
+#  methods to access and modify __price with proper validation (e.g., price must be > 0).
+
+class Laptop:
+    def __init__(self, price):
+        self.__price = None
+        self.set_price(price)
+
+    def get_price(self):
+        return self.__price
+
+    def set_price(self, price):
+        if price > 0:
+            self.__price = price
+
+my_laptop = Laptop(1000)
+print(my_laptop.get_price())
+
+my_laptop.set_price(-500)
+print(my_laptop.get_price())
