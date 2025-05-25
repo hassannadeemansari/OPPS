@@ -126,7 +126,7 @@ class Vehicle:
 
 class Car(Vehicle):
     def __init__(self , brand , model , seats):
-        super().__init__(model , brand)
+        super().__init__(brand , model)
         self.seats = seats
 
     def show_details(self):
@@ -148,7 +148,7 @@ class shape:
     def __init__(self):
         pass
 
-    def area():
+    def area(self):
         pass
 
 class Rectangle(shape):
@@ -197,20 +197,85 @@ print(New_Employee.get_details())
 # Create a class Laptop with a private attribute __price. Use getter and setter
 #  methods to access and modify __price with proper validation (e.g., price must be > 0).
 
+
 class Laptop:
-    def __init__(self, price):
+    def __init__(self, __price):
         self.__price = None
-        self.set_price(price)
+        self.set_price(__price)
 
     def get_price(self):
-        return self.__price
+        return f"{self.__price}"
+    
+    def set_price(self , set_price):
+        if set_price > 0 :
+            self.__price = set_price
+        else:
+            return "invalid amount"
+        
+My_laptop = Laptop(30000)
+print(My_laptop.get_price())
+l1 = Laptop(-10)
+print(l1.get_price())
+print(My_laptop.get_price())
+print(My_laptop.set_price(-10))
+print(My_laptop.set_price(0))
+My_laptop.set_price(500) 
+print(My_laptop.get_price())
+# print(My_laptop.__price)  private
 
-    def set_price(self, price):
-        if price > 0:
-            self.__price = price
 
-my_laptop = Laptop(1000)
-print(my_laptop.get_price())
+# Q3
+# Define a class Book with protected attribute _title. Create a subclass Ebook that
+#  inherits from Book and accesses the protected _title in its method display().
 
-my_laptop.set_price(-500)
-print(my_laptop.get_price())
+class Book:
+    def __init__(self , _title):
+        self._title = _title
+
+
+class Ebook(Book):
+    def __init__(self , _title):
+        super().__init__(_title)
+
+    def display(self):
+        return f"The title of book is {self._title}"
+    
+my_book = Book("Agentic Ai")
+print(my_book._title)
+
+mynew_book = Ebook("Generative AI")
+print(mynew_book.display())
+
+
+# Q4
+# Create a base class Employee with a method get_role().
+# Create subclasses Manager and Developer that override get_role() with their specific roles.
+# Then, write a function print_role(emp) that takes any employee object and calls get_role().
+
+
+class Employee:
+    def __init__(self):
+        pass
+
+    def get_role(self):
+        pass
+
+class Manager(Employee):
+    def get_role(self):
+        return "Manage All Account and manage all Employees"
+
+
+
+class Developer(Employee):
+    def get_role(self):
+        return "Mange all the development side work in company"
+
+
+def print_role(emp):
+    print(emp.get_role())
+
+e1 = Manager()
+e2 = Developer()
+
+print_role(e1)
+print_role(e2)
