@@ -279,3 +279,37 @@ e2 = Developer()
 
 print_role(e1)
 print_role(e2)
+
+
+class BankAccount:
+    def __init__(self, account_holder, balance=0):
+        self.__account_holder = account_holder
+        self.__balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
+
+    def get_balance(self):
+        return self.__balance
+
+    def get_account_holder(self):
+        return self.__account_holder
+
+    def set_account_holder(self, name):
+        if isinstance(name, str) and name.strip():
+            self.__account_holder = name
+
+
+acc = BankAccount("Hassan", 1000)
+acc.deposit(500)
+acc.withdraw(300)
+print(acc.get_account_holder())
+print(acc.get_balance())
+acc.set_account_holder("Usman")
+print(acc.get_account_holder())
+
