@@ -54,33 +54,33 @@ print(New_Person.age)
 # Q4
 # Create a class BankAccount with attributes account_holder and balance. Add a method deposit(amount) to increase balance and display_balance() to print it.
 
-class Bank_Account:
-    def __init__(self, acount_holder , balance = 0):
-        self.acount_holder = acount_holder
-        self.balance = balance
+# class Bank_Account:
+#     def __init__(self, acount_holder , balance = 0):
+#         self.acount_holder = acount_holder
+#         self.balance = balance
 
-    def deposit(self , amount):
+#     def deposit(self , amount):
 
-        #two ways😅
+#         #two ways😅
 
-        # self.amount = amount
-        # balanceafterdeposit = self.balance + self.amount
-        # self.balance = balanceafterdeposit
+#         # self.amount = amount
+#         # balanceafterdeposit = self.balance + self.amount
+#         # self.balance = balanceafterdeposit
 
-        self.balance += amount
+#         self.balance += amount
 
-        return f"{self.acount_holder} your new balance is {self.balance} after you deposit {amount}"
+#         return f"{self.acount_holder} your new balance is {self.balance} after you deposit {amount}"
     
-    def display_balance(self):
-        return f"Hey !{self.acount_holder}, your current balnce is {self.balance}"
+#     def display_balance(self):
+#         return f"Hey !{self.acount_holder}, your current balnce is {self.balance}"
     
 
 
-New_Account = Bank_Account("usman" , 500)
-print(New_Account.balance) #500
-print(New_Account.deposit(1000))
-print(New_Account.balance) # 1500
-print(New_Account.display_balance())
+# New_Account = Bank_Account("usman" , 500)
+# print(New_Account.balance) #500
+# print(New_Account.deposit(1000))
+# print(New_Account.balance) # 1500
+# print(New_Account.display_balance())
 
 
 
@@ -271,45 +271,150 @@ class Developer(Employee):
         return "Mange all the development side work in company"
 
 
-def print_role(emp):
-    print(emp.get_role())
+# def print_role(emp):
+#     print(emp.get_role())
 
-e1 = Manager()
-e2 = Developer()
+# e1 = Manager()
+# e2 = Developer()
 
-print_role(e1)
-print_role(e2)
+# print_role(e1)
+# print_role(e2)
 
+
+
+# Composition (Has-A Relationship)
+# Create a class Engine with attribute horsepower.
+# Create a class Car that has a brand and an Engine object.
+# Add a method car_info() that prints car brand and engine horsepower.
+
+class Engine:
+    def __init__(self , horsepower):
+        self.horsepower = horsepower
+
+class Car(Engine):
+    def __init__(self ,   brand ,horsepower ):
+        super().__init__(horsepower)
+        self.brand = brand
+
+    def car_info(self):
+        print(f"The brand of car is : {self.brand} and , its horsepower is : {self.horsepower}hps")
+
+my_car = Car("bugatti" , 1500)
+my_car.car_info()
+
+
+# Bank System (Encapsulation + Validation + Methods)
+# Create a class BankAccount with private attributes __account_holder, __balance.
+
+# Add methods to deposit(), withdraw(), and get_balance().
+# Validate that withdrawal can't exceed balance.
+# Use getter/setter with proper validation.
 
 class BankAccount:
-    def __init__(self, account_holder, balance=0):
-        self.__account_holder = account_holder
-        self.__balance = balance
+    def __init__(self , accountholder , balance):
+        self.__accountholder = accountholder
+        self.__balance = 0
+        if balance <= 0:
+            raise ValueError("Initial balnce must be greater then 0")
+        self.Deposit(balance)
 
-    def deposit(self, amount):
+
+    def Deposit(self , amount):
+
         if amount > 0:
             self.__balance += amount
+            return f"{self.__accountholder} after you deposit {amount}, your balnce become {self.__balance}"
+        
+        else:
+            return "invalid amount!"
 
-    def withdraw(self, amount):
-        if 0 < amount <= self.__balance:
+
+    def Withdraw(self , amount):
+        if amount <= self.__balance:
             self.__balance -= amount
+            return f"{self.__accountholder} you withdraw {amount} "
+        else :
+            return "insufficient funds"
+
+        
 
     def get_balance(self):
-        return self.__balance
+        return f"{self.__accountholder} your current balance is {self.__balance}"
+    
+new_account = BankAccount("Usman" , 50000)
+# print(new_account.Deposit(-100000000))
+print(new_account.get_balance())
+print(new_account.Withdraw(5000))
+print(new_account.get_balance())
 
-    def get_account_holder(self):
-        return self.__account_holder
-
-    def set_account_holder(self, name):
-        if isinstance(name, str) and name.strip():
-            self.__account_holder = name
 
 
-acc = BankAccount("Hassan", 1000)
-acc.deposit(500)
-acc.withdraw(300)
-print(acc.get_account_holder())
-print(acc.get_balance())
-acc.set_account_holder("Usman")
-print(acc.get_account_holder())
+# for better experience..
+#  Suggested Improvement:
+# Wrap object creation in a try...except block:
 
+# python
+# Copy
+# Edit
+# try:
+#     new_account = BankAccount("Usman", -50000)
+# except ValueError as e:
+#     print("Account creation failed:", e)
+
+
+#  4. Library System (Multiple Classes)
+# Book class with title, author, and is_borrowed.
+
+# Library class with a list of books.
+# Methods to add, borrow, and return books.
+# Print available books.
+
+
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self.is_borrowed = False
+
+
+class Library:
+    def __init__(self):
+        self.books = []
+
+    def add_book(self, book):
+        self.books.append(book)
+
+    def borrow_book(self, title):
+        for book in self.books:
+            if book.title == title and not book.is_borrowed:
+                book.is_borrowed = True
+                return f"You borrowed '{book.title}'"
+        return "Book not available"
+
+    def return_book(self, title):
+        for book in self.books:
+            if book.title == title and book.is_borrowed:
+                book.is_borrowed = False
+                return f"You returned '{book.title}'"
+        return "Book was not borrowed"
+
+    def list_available_books(self):
+        available = [f"{book.title} by {book.author}" for book in self.books if not book.is_borrowed]
+        return "\n".join(available) if available else "No books available"
+
+
+library = Library()
+
+book1 = Book("Clean Code", "Robert C. Martin")
+book2 = Book("The Pragmatic Programmer", "Andy Hunt")
+book3 = Book("Atomic Habits", "James Clear")
+
+library.add_book(book1)
+library.add_book(book2)
+library.add_book(book3)
+
+print(library.list_available_books())
+print(library.borrow_book("Atomic Habits"))
+print(library.list_available_books())
+print(library.return_book("Atomic Habits"))
+print(library.list_available_books())
