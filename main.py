@@ -47,3 +47,33 @@ print(cl1.Start())
 
 cl2 = NewCar("lamborgini")
 print(cl2.start())
+
+
+
+# Create a class `Vector` with `x` and `y`. Override the `+`  operator (`__add__`)
+#  to add two vectors. Override `__str__` to return a nice string like `"Vector(2, 3)"`.
+
+
+
+
+
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __str__(self):
+        return f"Vector({self.x}, {self.y})"
+
+
+# Example usage:
+v1 = Vector(2, 3)
+v2 = Vector(4, 1)
+v3 = v1 + v2
+
+print(v1)  # Output: Vector(2, 3)
+print(v2)  # Output: Vector(4, 1)
+print(v3)  # Output: Vector(6, 4)

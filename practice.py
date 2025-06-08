@@ -420,8 +420,65 @@ print(library.return_book("Atomic Habits"))
 print(library.list_available_books())
 
 
-# Create a class `Vector` with `x` and `y`. Override the `+`  operator (`__add__`)
-#  to add two vectors. Override `__str__` to return a nice string like `"Vector(2, 3)"`.
 
-class Vector:
-    def __init__(self , x , y):
+# 🔶 Q4 – Smart Fridge (Composition + Methods)
+# Create:
+
+# FoodItem: name, expiry_days
+
+# SmartFridge: has-a list of FoodItems
+
+# Add methods:
+
+# add_item()
+
+# remove_item(name)
+
+# expired_items(current_day) → returns list of expired items
+
+
+class FoodItem:
+    def __init__(self, name, expiry_days):
+        self.name = name
+        self.expiry_days = expiry_days
+
+    def __str__(self):
+        return f"{self.name} (Expires in {self.expiry_days} days)"
+
+
+class SmartFridge:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def remove_item(self, name):
+        self.items = [item for item in self.items if item.name != name]
+
+    def expired_items(self, current_day):
+        return [item for item in self.items if item.expiry_days < current_day]
+
+    def show_items(self):
+        for item in self.items:
+            print(item)
+
+
+# Example Usage
+fridge = SmartFridge()
+
+fridge.add_item(FoodItem("Milk", 3))
+fridge.add_item(FoodItem("Cheese", 10))
+fridge.add_item(FoodItem("Yogurt", 2))
+
+print("All items in fridge:")
+fridge.show_items()
+
+print("\nExpired items after 4 days:")
+for item in fridge.expired_items(current_day=4):
+    print(item)
+
+fridge.remove_item("Milk")
+
+print("\nAfter removing Milk:")
+fridge.show_items()
